@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perspective Visuals & Media | Photography & Cinematography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,700;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#060606;--dark:#0f0f0f;--card:#141414;--card2:#1a1a1a;
+  --red:#cc1a1a;--red-bright:#e82424;--red-dim:rgba(204,26,26,.15);
+  --silver:#a0a8b0;--silver-light:#c8d0d8;
+  --cream:#ede8e2;--muted:#6a6a6a;--white:#f8f8f6;
+  --border:rgba(204,26,26,.2);--border-s:rgba(160,168,176,.18);
+  --ease:cubic-bezier(.23,1,.32,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Montserrat',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--dark);}
+::-webkit-scrollbar-thumb{background:var(--red);}
+
+/* CURSOR */
+#cd,#cr{position:fixed;top:0;left:0;pointer-events:none;z-index:99999;border-radius:50%;transform:translate(-50%,-50%);}
+#cd{width:7px;height:7px;background:var(--red);}
+#cr{width:38px;height:38px;border:1.5px solid rgba(204,26,26,.5);transition:width .3s,height .3s,opacity .3s;}
+#cr.big{width:60px;height:60px;opacity:.6;}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:99998;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;}
+.ld-logo{width:200px;opacity:0;animation:fdIn .8s .2s forwards;mix-blend-mode:screen;}
+.ld-wrap{width:240px;height:2px;background:rgba(255,255,255,.08);}
+.ld-bar{height:100%;background:var(--red);width:0;animation:ldB 2s .4s cubic-bezier(.4,0,.2,1) forwards;}
+.ld-pct{font-size:.56rem;letter-spacing:.45em;text-transform:uppercase;color:var(--muted);}
+.ld-tag{font-size:.52rem;letter-spacing:.4em;text-transform:uppercase;color:var(--muted);opacity:.5;}
+#loader.done{opacity:0;pointer-events:none;transition:opacity .7s .1s;}
+@keyframes fdIn{to{opacity:1;}}
+@keyframes ldB{to{width:100%;}}
+
+/* MOBILE MENU */
+#mob{position:fixed;inset:0;z-index:9990;background:rgba(6,6,6,.97);backdrop-filter:blur(20px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:38px;}
+#mob.open{display:flex;}
+#mob a{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.12em;color:var(--white);text-decoration:none;transition:color .3s;line-height:1;}
+#mob a:hover{color:var(--red);}
+.mob-x{position:absolute;top:26px;right:28px;background:none;border:none;color:var(--cream);font-size:1.6rem;cursor:pointer;}
+.mob-soc{display:flex;gap:12px;margin-top:16px;}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:5000;padding:32px 80px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--ease),background .5s;}
+nav.sc{background:rgba(6,6,6,.96);backdrop-filter:blur(24px);padding:16px 80px;border-bottom:1px solid var(--border);}
+.nl img{height:64px;width:auto;display:block;transition:height .4s;object-fit:contain;mix-blend-mode:screen;}
+nav.sc .nl img{height:48px;}
+.nv{display:flex;gap:38px;list-style:none;align-items:center;}
+.nv a{color:var(--cream);text-decoration:none;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;font-weight:400;opacity:.72;position:relative;transition:opacity .3s,color .3s;}
+.nv a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:1.5px;background:var(--red);transition:width .4s var(--ease);}
+.nv a:hover{opacity:1;color:var(--white);}
+.nv a:hover::after{width:100%;}
+.nbk{background:var(--red)!important;color:var(--white)!important;padding:12px 28px!important;opacity:1!important;transition:background .3s,transform .3s!important;border-radius:2px;}
+.nbk:hover{background:var(--red-bright)!important;transform:translateY(-1px);}
+.nbk::after{display:none!important;}
+.hbg{display:none;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:4px;}
+.hbg span{width:26px;height:1.5px;background:var(--cream);display:block;}
+@media(max-width:900px){.nv{display:none;}.hbg{display:flex;}nav{padding:18px 24px;}nav.sc{padding:12px 24px;}}
+
+/* HERO */
+#hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hs{position:absolute;inset:0;}
+.hsl{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s cubic-bezier(.4,0,.2,1),transform 9s linear;transform:scale(1.07);}
+.hsl.on{opacity:1;transform:scale(1);}
+.ho{position:absolute;inset:0;background:linear-gradient(125deg,rgba(6,6,6,.85) 0%,rgba(6,6,6,.28) 55%,rgba(6,6,6,.65) 100%);}
+.ho::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(204,26,26,.16) 0%,transparent 50%);}
+.hc{position:relative;z-index:3;padding:120px 24px 90px;text-align:center;width:100%;max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;}
+.hey{font-size:.6rem;letter-spacing:.55em;text-transform:uppercase;color:var(--silver);margin-bottom:28px;opacity:0;animation:fadeUp .9s .5s var(--ease) forwards;}
+/* Big brand name */
+.ht-brand{display:flex;flex-direction:column;align-items:center;line-height:.95;margin-bottom:28px;opacity:0;animation:fadeUp .9s .65s var(--ease) forwards;}
+.ht-brand-line1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,7vw,6.5rem);letter-spacing:.06em;color:var(--white);}
+.ht-brand-line2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,7vw,6.5rem);letter-spacing:.06em;color:var(--white);}
+.ht-brand-line3{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4.5vw,3.8rem);letter-spacing:.12em;color:var(--silver-light);}
+.ht-brand .r{color:var(--red);}
+.hsub{font-size:.84rem;letter-spacing:.04em;line-height:1.85;color:rgba(237,232,226,.72);max-width:580px;font-style:italic;opacity:0;animation:fadeUp .9s .85s var(--ease) forwards;text-align:center;margin-bottom:12px;}
+.htag{font-size:.6rem;letter-spacing:.6em;text-transform:uppercase;color:var(--silver);margin-top:24px;opacity:0;animation:fadeUp .9s 1s var(--ease) forwards;}
+/* Stacked buttons */
+.hact-stack{margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;max-width:340px;opacity:0;animation:fadeUp .9s 1.15s var(--ease) forwards;}
+.btnr-full{display:block;width:100%;text-align:center;background:var(--red);color:var(--white);padding:16px 38px;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:background .3s,transform .3s;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;}
+.btnr-full:hover{background:var(--red-bright);transform:translateY(-2px);}
+.btnr-outline-full{display:block;width:100%;text-align:center;background:transparent;color:var(--cream);padding:15px 38px;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;text-decoration:none;border:1.5px solid rgba(237,232,226,.45);transition:border-color .3s,color .3s,transform .3s;font-family:'Montserrat',sans-serif;}
+.btnr-outline-full:hover{border-color:var(--cream);color:var(--white);transform:translateY(-2px);}
+.hscr{position:absolute;right:64px;bottom:90px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:fdIn 1s 1.6s forwards;}
+.hscr span{font-size:.52rem;letter-spacing:.4em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl;}
+.hscrl{width:1px;height:56px;background:linear-gradient(to bottom,var(--red),transparent);animation:scrlLine 2.2s 2s infinite;}
+.hdots{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:3;}
+.hdot{width:22px;height:2px;background:rgba(255,255,255,.2);cursor:pointer;transition:background .3s,width .4s;}
+.hdot.on{background:var(--red);width:40px;}
+@media(max-width:768px){.hc{padding:0 24px 80px;}.hscr{display:none;}}
+
+/* TICKER */
+.ticker{background:var(--red);padding:11px 0;overflow:hidden;}
+.tikr{display:flex;white-space:nowrap;animation:tikrAni 22s linear infinite;}
+.tikri{font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;font-weight:600;color:var(--white);padding:0 44px;display:flex;align-items:center;gap:18px;}
+.tikri::after{content:'◆';font-size:.4rem;opacity:.7;}
+
+/* SECTION */
+section{padding:160px 80px;}
+.sl{font-size:.55rem;letter-spacing:.45em;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:14px;}
+.sl::before{content:'';width:26px;height:1.5px;background:var(--red);}
+.st{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,5.5vw,5rem);letter-spacing:.05em;line-height:1;color:var(--white);}
+.st .r{color:var(--red);}.st .s{color:var(--silver);}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 1s var(--ease),transform 1s var(--ease);}
+.reveal.v{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+@media(max-width:900px){section{padding:90px 28px;}}
+
+/* ABOUT */
+#about{background:var(--dark);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.abv{position:relative;}
+.abm{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;}
+.aba{position:absolute;bottom:-36px;right:-36px;width:52%;aspect-ratio:1;object-fit:cover;border:4px solid var(--dark);}
+.abbd{position:absolute;top:28px;left:-28px;width:106px;height:106px;background:var(--red);color:var(--white);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;}
+.abbd-n{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1;letter-spacing:.04em;}
+.abbd-t{font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;text-align:center;line-height:1.4;opacity:.85;}
+.abb{font-size:.87rem;line-height:2;color:rgba(237,232,226,.7);margin-top:24px;}
+.abb p+p{margin-top:16px;}
+.abs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;padding-top:48px;border-top:1px solid var(--border-s);}
+.stn{font-family:'Bebas Neue',sans-serif;font-size:3.2rem;color:var(--red);line-height:1;letter-spacing:.04em;}
+.stl{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+@media(max-width:900px){#about{grid-template-columns:1fr;gap:48px;}.aba,.abbd{display:none;}}
+
+/* SERVICES */
+#services{background:var(--black);}
+.svch{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:68px;}
+.svcg{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.svcc{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer;}
+.svcc img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease),filter .5s;filter:brightness(.55) saturate(.9);}
+.svcc:hover img{transform:scale(1.1);filter:brightness(.28) saturate(.7);}
+.svcc-cov{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,.9) 0%,rgba(204,26,26,.07) 40%,transparent 70%);}
+.svcc-con{position:absolute;bottom:0;left:0;right:0;padding:30px 26px;transform:translateY(6px);transition:transform .5s var(--ease);}
+.svcc:hover .svcc-con{transform:translateY(0);}
+.svcc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease);z-index:2;}
+.svcc:hover::before{transform:scaleX(1);}
+.svcn{font-size:.56rem;color:var(--red);letter-spacing:.35em;text-transform:uppercase;margin-bottom:9px;font-weight:500;}
+.svcnm{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;color:var(--white);letter-spacing:.06em;line-height:1.05;}
+.svcd{font-size:.72rem;color:rgba(237,232,226,.6);line-height:1.75;margin-top:10px;max-height:0;overflow:hidden;transition:max-height .6s var(--ease);}
+.svcc:hover .svcd{max-height:80px;}
+.svca{margin-top:14px;color:var(--red);font-size:1rem;opacity:0;transform:translateX(-8px);transition:opacity .3s,transform .3s;}
+.svcc:hover .svca{opacity:1;transform:translateX(0);}
+@media(max-width:900px){.svcg{grid-template-columns:1fr 1fr;}.svch{flex-direction:column;align-items:flex-start;gap:16px;}}
+@media(max-width:600px){.svcg{grid-template-columns:1fr;}}
+
+/* GALLERY */
+#gallery{background:var(--dark);}
+.galh{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;}
+.galfl{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap;}
+.flt{padding:8px 22px;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;background:transparent;border:1px solid rgba(160,168,176,.18);color:var(--muted);cursor:pointer;transition:all .3s;font-family:'Montserrat',sans-serif;}
+.flt.on,.flt:hover{border-color:var(--red);color:var(--red);background:var(--red-dim);}
+.flt-more{border-style:dashed!important;font-style:italic;}
+.flt-more:hover{border-color:var(--silver)!important;color:var(--silver)!important;background:transparent!important;}
+.galg{columns:3;column-gap:5px;}
+.gali{break-inside:avoid;margin-bottom:5px;overflow:hidden;cursor:pointer;position:relative;}
+.gali img{width:100%;display:block;transition:transform .7s var(--ease),filter .4s;filter:brightness(.88) saturate(.95);}
+.gali:hover img{transform:scale(1.07);filter:brightness(.4) saturate(.7);}
+.galiov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .35s;}
+.gali:hover .galiov{opacity:1;}
+.gali-ic{width:50px;height:50px;border:1.5px solid var(--red);display:flex;align-items:center;justify-content:center;color:var(--red);font-size:1.4rem;}
+.gload{display:flex;justify-content:center;margin-top:50px;gap:14px;flex-wrap:wrap;}
+.bor{border:1.5px solid var(--red);color:var(--red);padding:13px 38px;font-size:.63rem;letter-spacing:.25em;text-transform:uppercase;background:transparent;cursor:pointer;transition:background .3s,color .3s;text-decoration:none;display:inline-block;font-family:'Montserrat',sans-serif;}
+.bor:hover{background:var(--red);color:var(--white);}
+.bos{border:1.5px solid var(--border-s);color:var(--silver);padding:13px 38px;font-size:.63rem;letter-spacing:.25em;text-transform:uppercase;background:transparent;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block;font-family:'Montserrat',sans-serif;}
+.bos:hover{border-color:var(--silver-light);color:var(--white);}
+@media(max-width:768px){.galg{columns:2;}.galh{flex-direction:column;align-items:flex-start;gap:14px;}}
+@media(max-width:480px){.galg{columns:1;}}
+
+/* LIGHTBOX */
+#lb{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.97);display:none;align-items:center;justify-content:center;}
+#lb.open{display:flex;}
+#lb img{max-width:88vw;max-height:88vh;object-fit:contain;border:1px solid var(--border);}
+.lbc{position:absolute;top:26px;right:32px;color:var(--cream);font-size:1.8rem;cursor:pointer;background:none;border:none;transition:color .3s;}
+.lbc:hover{color:var(--red);}
+.lbp,.lbn{position:absolute;top:50%;transform:translateY(-50%);color:var(--cream);font-size:2.4rem;cursor:pointer;background:none;border:none;padding:16px;transition:color .3s;}
+.lbp{left:12px;}.lbn{right:12px;}
+.lbp:hover,.lbn:hover{color:var(--red);}
+.lbcap{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+
+/* REEL */
+#reel{position:relative;height:65vh;overflow:hidden;padding:0;}
+.rbg{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.32);}
+.rov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;background:linear-gradient(135deg,rgba(204,26,26,.1) 0%,transparent 60%);}
+.rtt{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,6vw,5.5rem);letter-spacing:.08em;color:var(--white);text-align:center;line-height:1;}
+.rtt .r{color:var(--red);}
+.plb{width:80px;height:80px;border:2px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:1.6rem;text-decoration:none;transition:background .3s,transform .3s,box-shadow .3s;padding-left:4px;}
+.plb:hover{background:rgba(204,26,26,.18);transform:scale(1.1);box-shadow:0 0 40px rgba(204,26,26,.35);}
+.rsub{font-size:.56rem;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.4);}
+
+/* PROCESS */
+#process{background:var(--black);}
+.prs{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:68px;position:relative;}
+.prs::before{content:'';position:absolute;top:27px;left:54px;right:54px;height:1px;background:linear-gradient(to right,var(--border),var(--border-s),var(--border));}
+.prst{position:relative;}
+.prn{width:54px;height:54px;border:1.5px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--red);margin-bottom:24px;background:var(--black);position:relative;z-index:1;transition:background .3s,color .3s;}
+.prst:hover .prn{background:var(--red);color:var(--white);}
+.prt{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.07em;color:var(--white);margin-bottom:10px;}
+.prd{font-size:.74rem;line-height:1.88;color:var(--muted);}
+@media(max-width:900px){.prs{grid-template-columns:1fr 1fr;gap:32px;}.prs::before{display:none;}}
+@media(max-width:600px){.prs{grid-template-columns:1fr;}}
+
+/* TESTIMONIALS */
+#testimonials{background:var(--dark);overflow:hidden;}
+.tew{overflow:hidden;margin-top:60px;}
+.tet{display:flex;gap:22px;animation:scrollL 32s linear infinite;}
+.tet:hover{animation-play-state:paused;}
+.tec{flex-shrink:0;width:400px;border:1px solid var(--border-s);padding:38px 34px;background:var(--card);position:relative;overflow:hidden;transition:border-color .3s;}
+.tec:hover{border-color:rgba(204,26,26,.4);}
+.tec::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--red),transparent);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease);}
+.tec:hover::before{transform:scaleX(1);}
+.tq{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:var(--red);line-height:.6;margin-bottom:16px;opacity:.5;letter-spacing:.04em;}
+.tt{font-family:'Cormorant Garamond',serif;font-size:1.06rem;font-style:italic;line-height:1.75;color:var(--cream);margin-bottom:26px;}
+.ta{display:flex;align-items:center;gap:14px;}
+.ti{width:42px;height:42px;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:600;color:var(--white);letter-spacing:.05em;}
+.tn{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--white);font-weight:500;}
+.tr{font-size:.6rem;color:var(--muted);margin-top:3px;}
+.ts{color:var(--red);font-size:.6rem;letter-spacing:3px;margin-bottom:14px;}
+
+/* CONTACT */
+#contact{background:var(--black);}
+.cong{display:grid;grid-template-columns:1fr 1.1fr;gap:90px;margin-top:68px;align-items:start;}
+.coni h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.08em;color:var(--white);margin-bottom:8px;}
+.coni p{font-size:.78rem;color:var(--muted);line-height:1.8;margin-bottom:42px;}
+.conit{display:flex;gap:18px;align-items:flex-start;margin-bottom:24px;}
+.conic{width:44px;height:44px;flex-shrink:0;border:1px solid var(--border-s);display:flex;align-items:center;justify-content:center;color:var(--red);font-size:.95rem;transition:border-color .3s,background .3s;}
+.conit:hover .conic{border-color:var(--red);background:var(--red-dim);}
+.conil{font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.coniv{font-size:.84rem;color:var(--cream);}
+.coniv a{color:var(--cream);text-decoration:none;transition:color .3s;}
+.coniv a:hover{color:var(--red);}
+.socr{display:flex;gap:12px;margin-top:38px;}
+.soca{width:42px;height:42px;border:1px solid var(--border-s);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:border-color .3s,color .3s,background .3s;}
+.soca:hover{border-color:var(--red);color:var(--red);background:var(--red-dim);}
+.conf{display:flex;flex-direction:column;gap:17px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.fg{display:flex;flex-direction:column;gap:7px;}
+.fg label{font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+.fg input,.fg select,.fg textarea{background:var(--card2);border:1px solid rgba(255,255,255,.07);color:var(--cream);padding:13px 16px;font-family:'Montserrat',sans-serif;font-size:.78rem;outline:none;resize:vertical;transition:border-color .3s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--red);}
+.fg select option{background:var(--dark);}
+.fg textarea{min-height:110px;}
+.fsub{background:var(--red);color:var(--white);border:none;padding:15px 40px;font-family:'Montserrat',sans-serif;font-size:.63rem;letter-spacing:.28em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:background .3s,transform .3s;align-self:flex-start;}
+.fsub:hover{background:var(--red-bright);transform:translateY(-2px);}
+.fok{display:none;padding:15px;border:1px solid var(--red);color:var(--red);font-size:.76rem;text-align:center;margin-top:8px;letter-spacing:.1em;}
+@media(max-width:900px){.cong{grid-template-columns:1fr;gap:52px;}.frow{grid-template-columns:1fr;}}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid var(--border);padding:80px 64px 40px;}
+.ftg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:52px;margin-bottom:60px;}
+.ftb img{height:80px;width:auto;margin-bottom:16px;mix-blend-mode:screen;}
+.ftb p{font-size:.74rem;color:var(--muted);line-height:1.88;margin-bottom:22px;}
+.fth{font-size:.56rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:18px;}
+.ftl{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.ftl a{color:var(--muted);text-decoration:none;font-size:.76rem;transition:color .3s;}
+.ftl a:hover{color:var(--red);}
+.ftbot{display:flex;justify-content:space-between;align-items:center;padding-top:30px;border-top:1px solid var(--border);}
+.ftcopy{font-size:.62rem;color:var(--muted);letter-spacing:.06em;}
+.ftcopy span{color:var(--red);}
+.ftleg{display:flex;gap:22px;}
+.ftleg a{font-size:.6rem;color:var(--muted);text-decoration:none;transition:color .3s;}
+.ftleg a:hover{color:var(--silver);}
+@media(max-width:900px){.ftg{grid-template-columns:1fr 1fr;gap:34px;}footer{padding:60px 28px 32px;}}
+@media(max-width:600px){.ftg{grid-template-columns:1fr;}.ftbot{flex-direction:column;gap:14px;text-align:center;}}
+
+/* KEYFRAMES */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fdIn{from{opacity:0;}to{opacity:1;}}
+@keyframes scrlLine{0%{opacity:1;transform:scaleY(0);transform-origin:top;}50%{opacity:1;transform:scaleY(1);transform-origin:top;}51%{transform:scaleY(1);transform-origin:bottom;}100%{opacity:0;transform:scaleY(0);transform-origin:bottom;}}
+@keyframes tikrAni{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@keyframes scrollL{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+/* SERVICE TILES */
+.svc-tiles{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:2px;
+}
+.svc-tile{
+  background:var(--card);padding:28px 24px 32px;
+  border:1px solid rgba(255,255,255,.04);
+  position:relative;overflow:hidden;
+  transition:background .35s,border-color .35s,transform .35s;
+  cursor:default;
+}
+.svc-tile::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--red);transform:scaleX(0);transform-origin:left;
+  transition:transform .45s var(--ease);
+}
+.svc-tile:hover{background:var(--card2);border-color:rgba(204,26,26,.25);transform:translateY(-3px);}
+.svc-tile:hover::before{transform:scaleX(1);}
+.svc-tile-num{
+  font-family:'Bebas Neue',sans-serif;font-size:1.2rem;
+  color:var(--red);letter-spacing:.1em;margin-bottom:10px;opacity:.8;
+}
+.svc-tile-name{
+  font-family:'Bebas Neue',sans-serif;font-size:1.15rem;
+  color:var(--white);letter-spacing:.06em;line-height:1.2;margin-bottom:10px;
+}
+.svc-tile-desc{
+  font-size:.7rem;color:var(--muted);line-height:1.8;
+}
+.svc-tile-more{
+  background:var(--red-dim);border-color:var(--border)!important;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.svc-tile-more .svc-tile-name{color:var(--red);}
+.svc-tile-cta{
+  display:inline-block;margin-top:16px;
+  font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--red);text-decoration:none;font-weight:500;
+  transition:letter-spacing .3s;
+}
+.svc-tile-cta:hover{letter-spacing:.35em;}
+@media(max-width:1100px){.svc-tiles{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:768px){.svc-tiles{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.svc-tiles{grid-template-columns:1fr;}}
+
+/* GALLERY SOCIAL BUTTONS */
+.gload{display:flex;flex-direction:column;align-items:center;gap:20px;margin-top:56px;}
+.gload-label{
+  font-size:.58rem;letter-spacing:.45em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:16px;
+}
+.gload-label::before,.gload-label::after{content:'';flex:1;height:1px;background:var(--border-s);}
+.gload-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.gsoc-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:12px 22px;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
+  font-family:'Montserrat',sans-serif;font-weight:500;
+  text-decoration:none;border:1.5px solid;
+  transition:background .3s,color .3s,transform .3s,box-shadow .3s;
+}
+.gsoc-btn:hover{transform:translateY(-2px);}
+.gsoc-ig{border-color:#e1306c;color:#e1306c;}
+.gsoc-ig:hover{background:#e1306c;color:var(--white);box-shadow:0 8px 24px rgba(225,48,108,.25);}
+.gsoc-fb{border-color:#1877f2;color:#1877f2;}
+.gsoc-fb:hover{background:#1877f2;color:var(--white);box-shadow:0 8px 24px rgba(24,119,242,.25);}
+.gsoc-x{border-color:var(--silver-light);color:var(--silver-light);}
+.gsoc-x:hover{background:var(--silver-light);color:var(--black);box-shadow:0 8px 24px rgba(200,208,216,.2);}
+.gsoc-px{border-color:var(--red);color:var(--red);}
+.gsoc-px:hover{background:var(--red);color:var(--white);box-shadow:0 8px 24px rgba(204,26,26,.25);}
+@media(max-width:600px){.gsoc-btn{padding:10px 16px;font-size:.58rem;}}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <img class="ld-logo" src="logo-dark.png" alt="Perspective Visuals & Media">
+  <div class="ld-wrap"><div class="ld-bar"></div></div>
+  <div class="ld-pct" id="ldp">0%</div>
+  <div class="ld-tag">Loading your experience…</div>
+</div>
+
+<!-- CURSOR -->
+<div id="cd"></div><div id="cr"></div>
+
+<!-- MOBILE MENU -->
+<div id="mob">
+  <button class="mob-x" onclick="clM()">✕</button>
+  <a href="#about" onclick="clM()">About</a>
+  <a href="#services" onclick="clM()">Services</a>
+  <a href="#gallery" onclick="clM()">Gallery</a>
+  <a href="#process" onclick="clM()">Process</a>
+  <a href="#contact" onclick="clM()">Contact</a>
+  <div class="mob-soc">
+    <a href="https://www.instagram.com/perspective_visuals/" target="_blank" class="soca">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://web.facebook.com/profile.php?id=100048476235233" target="_blank" class="soca">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nl"><img src="logo-dark.png" alt="Perspective Visuals & Media"></a>
+  <ul class="nv">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nbk">Book Now</a></li>
+  </ul>
+  <button class="hbg" onclick="opM()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hs" id="hSl">
+    <div class="hsl on" style="background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1600&q=85')"></div>
+    <div class="hsl"    style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=85')"></div>
+    <div class="hsl"    style="background-image:url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1600&q=85')"></div>
+    <div class="hsl"    style="background-image:url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1600&q=85')"></div>
+    <div class="hsl"    style="background-image:url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=1600&q=85')"></div>
+  </div>
+  <div class="ho"></div>
+  <div class="hc">
+    <div class="hey">EST. 2019</div>
+    <h1 class="ht-brand">
+      <span class="ht-brand-line1">PERSPEC<span class="r">TIVE</span></span>
+      <span class="ht-brand-line2">VISUALS</span>
+      <span class="ht-brand-line3">&amp; MEDIA</span>
+    </h1>
+    <p class="hsub">State of the art photography &amp; cinematography for all occasions, events, outdoor festivals, private celebrations and all milestones in between.</p>
+    <div class="htag">MOMENTS &nbsp;•&nbsp; STORYTELLING &nbsp;•&nbsp; IMPACT</div>
+    <div class="hact-stack">
+      <a href="#gallery" class="btnr btnr-full">VIEW OUR WORK</a>
+      <a href="#contact" class="btnr-outline-full">BOOK A SESSION</a>
+    </div>
+  </div>
+  <div class="hscr"><span>Scroll</span><div class="hscrl"></div></div>
+  <div class="hdots" id="hDots"></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="tikr">
+    <span class="tikri">Photography</span><span class="tikri">Cinematography</span>
+    <span class="tikri">Weddings</span><span class="tikri">Corporate Events</span>
+    <span class="tikri">Outdoor Festivals</span><span class="tikri">Portraits</span>
+    <span class="tikri">Private Events</span><span class="tikri">Music Concerts</span>
+    <span class="tikri">Film & Video</span>
+    <span class="tikri">Photography</span><span class="tikri">Cinematography</span>
+    <span class="tikri">Weddings</span><span class="tikri">Corporate Events</span>
+    <span class="tikri">Outdoor Festivals</span><span class="tikri">Portraits</span>
+    <span class="tikri">Private Events</span><span class="tikri">Music Concerts</span>
+    <span class="tikri">Film & Video</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="abv reveal">
+    <img class="abm" src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&q=85" alt="PV photographer at work">
+    <img class="aba" src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=600&q=85" alt="Camera">
+    <div class="abbd"><span class="abbd-n">5+</span><span class="abbd-t">Years of Excellence</span></div>
+  </div>
+  <div class="reveal d1">
+    <div class="sl">Our Story</div>
+    <h2 class="st">Capturing Life's Most<br><span class="r">Precious</span> Moments</h2>
+    <div class="abb">
+      <p>Perspective Visuals & Media is a South Africa–based photography, cinematography media studio and agency founded on a singular belief: Every person, event, and moment deserves to be seen and remembered in its truest, most beautiful form.</p>
+      <p>Born from a passion for freezing time — capturing the raw emotion of a first dance, the electric energy of a festival crowd, the quiet dignity of a brand story told beautifully.</p>
+      <p>From intimate portraits to large-scale corporate productions, outdoor festivals to luxury weddings and every occasion in-between. We bring cinematic vision and meticulous craft to every engagement, translating your vision into imagery that transcends the ordinary.</p>
+      <p>We serve individuals, private families, businesses, and event organisers across South Africa and beyond, bringing the same dedication to a personal shoot as we do to a multi-day festival production.</p>
+    </div>
+    <div class="abs">
+      <div><div class="stn" data-target="300">0</div><div class="stl">Events Covered</div></div>
+      <div><div class="stn" data-target="500">0</div><div class="stl">Happy Clients</div></div>
+      <div><div class="stn" data-target="50">0</div><div class="stl">Festivals Filmed</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="svch reveal">
+    <div><div class="sl">What We Do</div><h2 class="st">Our <span class="r">Services</span></h2></div>
+    <a href="#contact" style="color:var(--silver-light);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:10px;transition:gap .3s,color .3s;" onmouseenter="this.style.gap='18px';this.style.color='var(--red)'" onmouseleave="this.style.gap='10px';this.style.color='var(--silver-light)'">Book a Session &nbsp;→</a>
+  </div>
+
+  <!-- Featured top 3 large cards -->
+  <div class="svcg reveal d1">
+    <div class="svcc"><img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=700&q=85" alt="Weddings"><div class="svcc-cov"></div><div class="svcc-con"><div class="svcn">01</div><div class="svcnm">Weddings</div><div class="svcd">Timeless, romantic imagery capturing every emotion — from preparations to the last dance and everything in between.</div><div class="svca">→</div></div></div>
+    <div class="svcc"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=700&q=85" alt="Birthday Celebrations"><div class="svcc-cov"></div><div class="svcc-con"><div class="svcn">02</div><div class="svcnm">Birthday<br>Celebrations</div><div class="svcd">Beautifully curated coverage of milestone birthdays, surprise parties and intimate gatherings of all sizes.</div><div class="svca">→</div></div></div>
+    <div class="svcc"><img src="https://images.unsplash.com/photo-1578763363228-6e8428de69b2?w=700&q=85" alt="Traditional Ceremonies"><div class="svcc-cov"></div><div class="svcc-con"><div class="svcn">03</div><div class="svcnm">Traditional<br>Ceremonies</div><div class="svcd">Respectful, authentic documentation of cultural ceremonies and traditional celebrations across all communities.</div><div class="svca">→</div></div></div>
+  </div>
+
+  <!-- Compact service tiles grid -->
+  <div class="svc-tiles reveal d2">
+    <div class="svc-tile"><div class="svc-tile-num">04</div><div class="svc-tile-name">Matric Dance &amp; Graduations</div><div class="svc-tile-desc">Your academic milestone, captured with the elegance it deserves — from prom nights to graduation ceremonies.</div></div>
+    <div class="svc-tile"><div class="svc-tile-num">05</div><div class="svc-tile-name">Content Production</div><div class="svc-tile-desc">High-quality photo and video content for social media, digital campaigns, reels and brand storytelling.</div></div>
+    <div class="svc-tile"><div class="svc-tile-num">06</div><div class="svc-tile-name">Media &amp; PR Coverage</div><div class="svc-tile-desc">Professional press coverage, event photography and media assets for PR campaigns and publications.</div></div>
+    <div class="svc-tile"><div class="svc-tile-num">07</div><div class="svc-tile-name">Festivals &amp; Concerts</div><div class="svc-tile-desc">High-energy, dynamic coverage of outdoor festivals, live music events and cultural spectacles.</div></div>
+    <div class="svc-tile"><div class="svc-tile-num">08</div><div class="svc-tile-name">Studio Portrait</div><div class="svc-tile-desc">Professional studio sessions for individuals, families and personal branding in a controlled creative environment.</div></div>
+    <div class="svc-tile"><div class="svc-tile-num">09</div><div class="svc-tile-name">Product Shoot</div><div class="svc-tile-desc">Clean, commercial-grade product photography for e-commerce, catalogues and marketing materials.</div></div>
+    <div class="svc-tile"><div class="svc-tile-num">10</div><div class="svc-tile-name">Company Profile Shoot</div><div class="svc-tile-desc">Corporate headshots, team photography and office environment shoots that tell your brand's human story.</div></div>
+    <div class="svc-tile"><div class="svc-tile-num">11</div><div class="svc-tile-name">Brand Launch</div><div class="svc-tile-desc">Full coverage of product launches, brand activations and press events to amplify your brand moment.</div></div>
+    <div class="svc-tile"><div class="svc-tile-num">12</div><div class="svc-tile-name">Editorial Portrait</div><div class="svc-tile-desc">Magazine-quality editorial portraiture for artists, professionals, public figures and personal branding.</div></div>
+    <div class="svc-tile"><div class="svc-tile-num">13</div><div class="svc-tile-name">Celebration Event</div><div class="svc-tile-desc">Anniversaries, engagements, baby showers and all life celebrations covered with warmth and artistry.</div></div>
+    <div class="svc-tile"><div class="svc-tile-num">14</div><div class="svc-tile-name">Conference &amp; Corporate</div><div class="svc-tile-desc">Comprehensive multi-day conference photography and videography for boardrooms to large-scale summits.</div></div>
+    <div class="svc-tile svc-tile-more"><div class="svc-tile-num">+</div><div class="svc-tile-name">Private Celebrations, Functions &amp; Many More</div><div class="svc-tile-desc">Have something unique in mind? We cover it all. Get in touch and let's bring your vision to life.</div><a href="#contact" class="svc-tile-cta">Enquire Now →</a></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="galh reveal">
+    <div><div class="sl">Portfolio</div><h2 class="st">Our <span class="r">Gallery</span></h2></div>
+    <a href="https://galleries.pixieset.com/collections" target="_blank" class="bor">Full Gallery ↗</a>
+  </div>
+  <div class="galfl reveal">
+    <button class="flt on" data-f="all">All</button>
+    <button class="flt" data-f="wedding">Weddings</button>
+    <button class="flt" data-f="corporate">Corporate</button>
+    <button class="flt" data-f="birthday">Birthday Celebrations</button>
+    <button class="flt" data-f="traditional">Traditional Ceremonies</button>
+    <button class="flt" data-f="matric">Matric Dance &amp; Graduations</button>
+    <button class="flt" data-f="festival">Festivals &amp; Concerts</button>
+    <button class="flt" data-f="product">Product Shoot</button>
+    <button class="flt" data-f="brand">Brand Launch</button>
+    <button class="flt flt-more" data-f="more">&amp; Many More</button>
+  </div>
+  <div class="galg reveal" id="galGrid"></div>
+  <div class="gload reveal">
+    <div class="gload-label">See Our Complete Portfolio</div>
+    <div class="gload-btns">
+      <a href="https://www.instagram.com/perspective_visuals/" target="_blank" class="gsoc-btn gsoc-ig">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+      <a href="https://web.facebook.com/profile.php?id=100048476235233" target="_blank" class="gsoc-btn gsoc-fb">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        Facebook
+      </a>
+      <a href="https://twitter.com/perspective_visuals" target="_blank" class="gsoc-btn gsoc-x">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Twitter / X
+      </a>
+      <a href="https://galleries.pixieset.com/collections" target="_blank" class="gsoc-btn gsoc-px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Pixieset Gallery
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lb">
+  <button class="lbc" onclick="clLB()">✕</button>
+  <button class="lbp" onclick="pvLB()">‹</button>
+  <img id="lbI" src="" alt="">
+  <button class="lbn" onclick="nxLB()">›</button>
+  <div class="lbcap" id="lbC"></div>
+</div>
+
+<!-- REEL -->
+<section id="reel">
+  <img class="rbg" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1600&q=80" alt="Film">
+  <div class="rov">
+    <div class="rtt reveal">More Than a Photo —<br>It's a <span class="r">Cinematic</span> Experience</div>
+    <a href="https://www.instagram.com/perspective_visuals/" target="_blank" class="plb">▶</a>
+    <div class="rsub">Watch our latest work on Instagram</div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="reveal"><div class="sl">How We Work</div><h2 class="st">The <span class="r">Process</span></h2></div>
+  <div class="prs">
+    <div class="prst reveal d1"><div class="prn">01</div><div class="prt">Consultation</div><div class="prd">We begin with a conversation — understanding your vision, event details and desired aesthetic to align our approach perfectly.</div></div>
+    <div class="prst reveal d2"><div class="prn">02</div><div class="prt">Planning</div><div class="prd">A tailored shot list, location scouting, lighting plans and logistics are prepared to ensure seamless execution on the day.</div></div>
+    <div class="prst reveal d3"><div class="prn">03</div><div class="prt">The Shoot</div><div class="prd">Our team captures every moment — candid and composed — with professional-grade equipment and an artistic eye for detail.</div></div>
+    <div class="prst reveal d4"><div class="prn">04</div><div class="prt">Delivery</div><div class="prd">Beautifully edited images or cinematic film delivered via your private Pixieset gallery within the agreed timeframe.</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="reveal"><div class="sl">Client Love</div><h2 class="st">What Our <span class="r">Clients</span> Say</h2></div>
+  <div class="tew"><div class="tet" id="teT"></div></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal"><div class="sl">Get In Touch</div><h2 class="st">Let's Create Something <span class="r">Beautiful</span></h2></div>
+  <div class="cong">
+    <div class="coni reveal">
+      <h3>Ready to Book?</h3>
+      <p>Whether it's an intimate portrait session or a large-scale festival production, we'd love to hear from you. Let's bring your vision to life.</p>
+      <div class="conit"><div class="conic">✉</div><div><div class="conil">Email</div><div class="coniv"><a href="mailto:perspective.visuals19@gmail.com">perspective.visuals19@gmail.com</a></div></div></div>
+      <div class="conit"><div class="conic">📍</div><div><div class="conil">Based In</div><div class="coniv">South Africa<br><span style="color:var(--muted);font-size:.74rem;">Available Nationwide & Internationally</span></div></div></div>
+      <div class="conit"><div class="conic">📸</div><div><div class="conil">Full Portfolio</div><div class="coniv"><a href="https://galleries.pixieset.com/collections" target="_blank">galleries.pixieset.com/collections</a></div></div></div>
+      <div class="socr">
+        <a href="https://www.instagram.com/perspective_visuals/" target="_blank" class="soca" title="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://web.facebook.com/profile.php?id=100048476235233" target="_blank" class="soca" title="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="mailto:perspective.visuals19@gmail.com" class="soca" title="Email"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+        <a href="https://galleries.pixieset.com/collections" target="_blank" class="soca" title="Pixieset"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></a>
+      </div>
+    </div>
+    <div class="reveal d1">
+      <form class="conf" onsubmit="fmSub(event)">
+        <div class="frow"><div class="fg"><label>First Name</label><input type="text" placeholder="First name" required></div><div class="fg"><label>Last Name</label><input type="text" placeholder="Last name" required></div></div>
+        <div class="fg"><label>Email Address</label><input type="email" placeholder="your@email.com" required></div>
+        <div class="fg"><label>Phone Number</label><input type="tel" placeholder="+27 ___ ___ ____"></div>
+        <div class="fg"><label>Service Required</label><select required><option value="" disabled selected>Select a service</option><option>Wedding Photography</option><option>Wedding Cinematography</option><option>Corporate Event Coverage</option><option>Outdoor Festival / Concert</option><option>Portrait Session</option><option>Private Event</option><option>Product / Commercial Shoot</option><option>Other</option></select></div>
+        <div class="frow"><div class="fg"><label>Event Date</label><input type="date"></div><div class="fg"><label>Budget Range</label><select><option value="" disabled selected>Select range</option><option>Under R5,000</option><option>R5,000 – R10,000</option><option>R10,000 – R20,000</option><option>R20,000+</option><option>To Be Discussed</option></select></div></div>
+        <div class="fg"><label>Tell Us More</label><textarea placeholder="Describe your event, vision or any special requirements…"></textarea></div>
+        <button type="submit" class="fsub">Send Enquiry →</button>
+        <div class="fok" id="fOk">✓ &nbsp; Thank you! We'll be in touch within 24 hours.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftg">
+    <div class="ftb">
+      <img src="logo-dark.png" alt="Perspective Visuals & Media">
+      <p>Photography and cinematography studio based in South Africa. Creating timeless imagery for every occasion — personal, private, and corporate.<br><br><em style="color:var(--silver);font-size:.7rem;">Moments · Storytelling · Impact</em></p>
+      <div class="socr">
+        <a href="https://www.instagram.com/perspective_visuals/" target="_blank" class="soca"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://web.facebook.com/profile.php?id=100048476235233" target="_blank" class="soca"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="mailto:perspective.visuals19@gmail.com" class="soca"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+      </div>
+    </div>
+    <div><div class="fth">Services</div><ul class="ftl"><li><a href="#services">Wedding Photography</a></li><li><a href="#services">Cinematography</a></li><li><a href="#services">Corporate Events</a></li><li><a href="#services">Outdoor Festivals</a></li><li><a href="#services">Portraits</a></li><li><a href="#services">Private Events</a></li></ul></div>
+    <div><div class="fth">Company</div><ul class="ftl"><li><a href="#about">About Us</a></li><li><a href="#gallery">Portfolio</a></li><li><a href="#process">Our Process</a></li><li><a href="#testimonials">Client Reviews</a></li><li><a href="#contact">Contact Us</a></li></ul></div>
+    <div><div class="fth">Connect</div><ul class="ftl"><li><a href="https://www.instagram.com/perspective_visuals/" target="_blank">Instagram</a></li><li><a href="https://web.facebook.com/profile.php?id=100048476235233" target="_blank">Facebook</a></li><li><a href="https://galleries.pixieset.com/collections" target="_blank">Pixieset Gallery</a></li><li><a href="mailto:perspective.visuals19@gmail.com">Email Us</a></li></ul></div>
+  </div>
+  <div class="ftbot">
+    <div class="ftcopy">© 2025 <span>Perspective Visuals & Media</span>. All rights reserved.</div>
+    <div class="ftleg"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+  </div>
+</footer>
+
+<script>
+// LOADER
+const loader = document.getElementById('loader');
+const lp = document.getElementById('ldp');
+let p = 0;
+
+const lt = setInterval(() => {
+  p += Math.random() * 20;
+  if (p >= 100) {
+    p = 100;
+    clearInterval(lt);
+  }
+  lp.textContent = Math.floor(p) + '%';
+}, 110);
+
+function finishLoading() {
+  setTimeout(() => {
+    loader.classList.add('done');
+    setTimeout(() => loader.remove(), 900);
+  }, 1000);
+}
+
+// Ensure loader goes away even if images take too long
+const safetyTimeout = setTimeout(finishLoading, 4000);
+
+window.addEventListener('load', () => {
+  clearTimeout(safetyTimeout);
+  finishLoading();
+});
+
+// If document is already loaded (e.g. from cache)
+if (document.readyState === 'complete') {
+  clearTimeout(safetyTimeout);
+  finishLoading();
+}
+
+// CURSOR
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function a(){cd.style.cssText=`left:${mx}px;top:${my}px;`;rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cr.style.cssText=`left:${rx}px;top:${ry}px;`;requestAnimationFrame(a);})();
+document.querySelectorAll('a,button,.svcc,.gali,.flt').forEach(el=>{el.addEventListener('mouseenter',()=>cr.classList.add('big'));el.addEventListener('mouseleave',()=>cr.classList.remove('big'));});
+
+// NAV
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>50));
+
+// MOBILE MENU
+function opM(){document.getElementById('mob').classList.add('open');}
+function clM(){document.getElementById('mob').classList.remove('open');}
+
+// HERO SLIDER
+const sl=document.querySelectorAll('.hsl'),dt=document.getElementById('hDots');
+let cur=0;
+sl.forEach((_,i)=>{const d=document.createElement('div');d.className='hdot'+(i===0?' on':'');d.onclick=()=>gS(i);dt.appendChild(d);});
+function gS(n){sl[cur].classList.remove('on');dt.children[cur].classList.remove('on');cur=n;sl[cur].classList.add('on');dt.children[cur].classList.add('on');}
+setInterval(()=>gS((cur+1)%sl.length),5800);
+
+// GALLERY
+const imgs=[
+  {src:'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',cat:'wedding',t:'Wedding Ceremony'},
+  {src:'https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=800&q=80',cat:'wedding',t:'Wedding Reception'},
+  {src:'https://images.unsplash.com/photo-1578763363228-6e8428de69b2?w=800&q=80',cat:'wedding',t:'Wedding Couple'},
+  {src:'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=800&q=80',cat:'wedding',t:'Bridal Session'},
+  {src:'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&q=80',cat:'corporate',t:'Corporate Gala'},
+  {src:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',cat:'corporate',t:'Brand Launch Event'},
+  {src:'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80',cat:'corporate',t:'Conference'},
+  {src:'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',cat:'birthday',t:'Birthday Celebration'},
+  {src:'https://images.unsplash.com/photo-1504680177321-2e6a879aac86?w=800&q=80',cat:'birthday',t:'Milestone Birthday'},
+  {src:'https://images.unsplash.com/photo-1578763363228-6e8428de69b2?w=800&q=80',cat:'traditional',t:'Traditional Ceremony'},
+  {src:'https://images.unsplash.com/photo-1607462109225-6b64ae2dd3cb?w=800&q=80',cat:'traditional',t:'Cultural Celebration'},
+  {src:'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80',cat:'matric',t:'Matric Dance'},
+  {src:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80',cat:'matric',t:'Graduation Portrait'},
+  {src:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80',cat:'festival',t:'Live Concert'},
+  {src:'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80',cat:'festival',t:'Music Festival'},
+  {src:'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=800&q=80',cat:'festival',t:'Festival Crowd'},
+  {src:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80',cat:'product',t:'Product Photography'},
+  {src:'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=800&q=80',cat:'product',t:'Commercial Shoot'},
+  {src:'https://images.unsplash.com/photo-1579674592051-8e1cd0bf7bb8?w=800&q=80',cat:'brand',t:'Brand Launch'},
+  {src:'https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&q=80',cat:'brand',t:'Brand Campaign'},
+];
+let af='all',li=0,fi=[];
+function rG(f){
+  fi=f==='all'?imgs:imgs.filter(i=>i.cat===f);
+  document.getElementById('galGrid').innerHTML=fi.map((g,i)=>`<div class="gali" onclick="oLB(${i})"><img src="${g.src}" alt="${g.t}" loading="lazy"><div class="galiov"><div class="gali-ic">+</div></div></div>`).join('');
+  document.querySelectorAll('.gali').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cr.classList.add('big'));
+    el.addEventListener('mouseleave',()=>cr.classList.remove('big'));
+  });
+}
+rG('all');
+document.querySelectorAll('.flt').forEach(b=>{
+  b.addEventListener('click',()=>{
+    if(b.dataset.f==='more'){
+      document.getElementById('gallery').scrollIntoView({behavior:'smooth'});
+      window.open('https://galleries.pixieset.com/collections','_blank');
+      return;
+    }
+    document.querySelectorAll('.flt').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    rG(b.dataset.f);
+  });
+});
+
+// LIGHTBOX
+function oLB(i){li=i;document.getElementById('lbI').src=fi[i].src.replace('w=800','w=1400');document.getElementById('lbC').textContent=fi[i].t;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden';}
+function clLB(){document.getElementById('lb').classList.remove('open');document.body.style.overflow='';}
+function pvLB(){li=(li-1+fi.length)%fi.length;oLB(li);}
+function nxLB(){li=(li+1)%fi.length;oLB(li);}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')clLB();if(e.key==='ArrowLeft')pvLB();if(e.key==='ArrowRight')nxLB();});
+document.getElementById('lb').addEventListener('click',e=>{if(e.target===document.getElementById('lb'))clLB();});
+
+// TESTIMONIALS
+const td=[
+  {t:"Perspective Visuals captured our wedding so perfectly — every look, every tear, every laugh. The film made us relive the entire day.",a:"Lerato & Siyanda M.",r:"Wedding Clients",i:"LM"},
+  {t:"Absolutely professional team. Our corporate gala was documented beautifully. Every shot was perfectly composed and delivered on time.",a:"Amanda Dlamini",r:"Marketing Director, TechCorp SA",i:"AD"},
+  {t:"They shot our festival for two years running. The energy they capture in still images is unmatched — our promo materials have never looked better.",a:"Ruan van der Berg",r:"Festival Organiser, SoundScape",i:"RB"},
+  {t:"I booked a portrait session and was absolutely blown away. The photos were so natural and editorial. I've recommended them to everyone.",a:"Zanele Nkosi",r:"Personal Branding Client",i:"ZN"},
+  {t:"The team was discreet, efficient, and warm throughout our private event. The photos were stunning — exactly what we'd hoped for.",a:"Michael & Sarah P.",r:"Private Event",i:"MS"},
+  {t:"From initial consultation to gallery delivery on Pixieset, the process was seamless. The images exceeded every expectation.",a:"Ntombi Khumalo",r:"Corporate Event Client",i:"NK"},
+];
+const tk=document.getElementById('teT');
+tk.innerHTML=[...td,...td].map(t=>`<div class="tec"><div class="ts">★ ★ ★ ★ ★</div><div class="tq">"</div><div class="tt">${t.t}</div><div class="ta"><div class="ti">${t.i}</div><div><div class="tn">${t.a}</div><div class="tr">${t.r}</div></div></div></div>`).join('');
+
+// SCROLL REVEAL
+const rv=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting){setTimeout(()=>el.target.classList.add('v'),i*60);rv.unobserve(el.target);}});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>rv.observe(el));
+
+// COUNTER
+function aC(el,tg){let v=0;const s=tg/55;const t=setInterval(()=>{v+=s;if(v>=tg){v=tg;clearInterval(t);}el.textContent=Math.floor(v)+'+';},30);}
+const co=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){aC(el.target,parseInt(el.target.dataset.target));co.unobserve(el.target);}});},{threshold:.5});
+document.querySelectorAll('.stn[data-target]').forEach(el=>co.observe(el));
+
+// FORM
+function fmSub(e){e.preventDefault();const ok=document.getElementById('fOk');ok.style.display='block';const b=e.target.querySelector('.fsub');b.textContent='✓ Sent Successfully';b.style.background='#1a7a32';setTimeout(()=>{ok.style.display='none';},6000);}
+</script>
+</body>
+</html>
