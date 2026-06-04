@@ -498,14 +498,15 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:80px 64
   </div>
   <div class="galfl reveal">
     <button class="flt on" data-f="all">All</button>
-    <button class="flt" data-f="wedding">Weddings</button>
-    <button class="flt" data-f="corporate">Corporate</button>
-    <button class="flt" data-f="birthday">Birthday Celebrations</button>
-    <button class="flt" data-f="traditional">Traditional Ceremonies</button>
-    <button class="flt" data-f="matric">Matric Dance &amp; Graduations</button>
-    <button class="flt" data-f="festival">Festivals &amp; Concerts</button>
-    <button class="flt" data-f="product">Product Shoot</button>
-    <button class="flt" data-f="brand">Brand Launch</button>
+    <button class="flt" data-f="Birthday Celebrations">Birthday Celebrations</button>
+    <button class="flt" data-f="Corporate &amp; PR">Corporate &amp; PR</button>
+    <button class="flt" data-f="Cultural Celebrations">Cultural Celebrations</button>
+    <button class="flt" data-f="Festivals &amp; Concerts">Festivals &amp; Concerts</button>
+    <button class="flt" data-f="Graduations &amp; Matric Dance">Graduations &amp; Matric Dance</button>
+    <button class="flt" data-f="Models &amp; Content">Models &amp; Content</button>
+    <button class="flt" data-f="Product Shoot">Product Shoot</button>
+    <button class="flt" data-f="Property &amp; Real Estate">Property &amp; Real Estate</button>
+    <button class="flt" data-f="Weddings">Weddings</button>
     <button class="flt flt-more" data-f="more">&amp; Many More</button>
   </div>
   <div class="galg reveal" id="galGrid"></div>
@@ -681,26 +682,376 @@ setInterval(()=>gS((cur+1)%sl.length),5800);
 
 // GALLERY
 const imgs=[
-  {src:'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',cat:'wedding',t:'Wedding Ceremony'},
-  {src:'https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=800&q=80',cat:'wedding',t:'Wedding Reception'},
-  {src:'https://images.unsplash.com/photo-1578763363228-6e8428de69b2?w=800&q=80',cat:'wedding',t:'Wedding Couple'},
-  {src:'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=800&q=80',cat:'wedding',t:'Bridal Session'},
-  {src:'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&q=80',cat:'corporate',t:'Corporate Gala'},
-  {src:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',cat:'corporate',t:'Brand Launch Event'},
-  {src:'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80',cat:'corporate',t:'Conference'},
-  {src:'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',cat:'birthday',t:'Birthday Celebration'},
-  {src:'https://images.unsplash.com/photo-1504680177321-2e6a879aac86?w=800&q=80',cat:'birthday',t:'Milestone Birthday'},
-  {src:'https://images.unsplash.com/photo-1578763363228-6e8428de69b2?w=800&q=80',cat:'traditional',t:'Traditional Ceremony'},
-  {src:'https://images.unsplash.com/photo-1607462109225-6b64ae2dd3cb?w=800&q=80',cat:'traditional',t:'Cultural Celebration'},
-  {src:'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80',cat:'matric',t:'Matric Dance'},
-  {src:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80',cat:'matric',t:'Graduation Portrait'},
-  {src:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80',cat:'festival',t:'Live Concert'},
-  {src:'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80',cat:'festival',t:'Music Festival'},
-  {src:'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=800&q=80',cat:'festival',t:'Festival Crowd'},
-  {src:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80',cat:'product',t:'Product Photography'},
-  {src:'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=800&q=80',cat:'product',t:'Commercial Shoot'},
-  {src:'https://images.unsplash.com/photo-1579674592051-8e1cd0bf7bb8?w=800&q=80',cat:'brand',t:'Brand Launch'},
-  {src:'https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&q=80',cat:'brand',t:'Brand Campaign'},
+  {
+    "src": "/gallery/Birthday Celebrations/PSX_20260530_205255.jpg",
+    "cat": "Birthday Celebrations",
+    "t": "Birthday Celebrations"
+  },
+  {
+    "src": "/gallery/Birthday Celebrations/PSX_20260530_205325.jpg",
+    "cat": "Birthday Celebrations",
+    "t": "Birthday Celebrations"
+  },
+  {
+    "src": "/gallery/Birthday Celebrations/PSX_20260530_205408.jpg",
+    "cat": "Birthday Celebrations",
+    "t": "Birthday Celebrations"
+  },
+  {
+    "src": "/gallery/Birthday Celebrations/PSX_20260530_205553.jpg",
+    "cat": "Birthday Celebrations",
+    "t": "Birthday Celebrations"
+  },
+  {
+    "src": "/gallery/Birthday Celebrations/PSX_20260530_205633.jpg",
+    "cat": "Birthday Celebrations",
+    "t": "Birthday Celebrations"
+  },
+  {
+    "src": "/gallery/Corporate & PR/IMG_2716.jpg",
+    "cat": "Corporate & PR",
+    "t": "Corporate & PR"
+  },
+  {
+    "src": "/gallery/Corporate & PR/PSX_20260530_204703.jpg",
+    "cat": "Corporate & PR",
+    "t": "Corporate & PR"
+  },
+  {
+    "src": "/gallery/Corporate & PR/PSX_20260530_204806.jpg",
+    "cat": "Corporate & PR",
+    "t": "Corporate & PR"
+  },
+  {
+    "src": "/gallery/Corporate & PR/PSX_20260530_204830.jpg",
+    "cat": "Corporate & PR",
+    "t": "Corporate & PR"
+  },
+  {
+    "src": "/gallery/Corporate & PR/PSX_20260530_204901.jpg",
+    "cat": "Corporate & PR",
+    "t": "Corporate & PR"
+  },
+  {
+    "src": "/gallery/Corporate & PR/PSX_20260530_204913.jpg",
+    "cat": "Corporate & PR",
+    "t": "Corporate & PR"
+  },
+  {
+    "src": "/gallery/Corporate & PR/PSX_20260530_204923.jpg",
+    "cat": "Corporate & PR",
+    "t": "Corporate & PR"
+  },
+  {
+    "src": "/gallery/Corporate & PR/PSX_20260530_204933.jpg",
+    "cat": "Corporate & PR",
+    "t": "Corporate & PR"
+  },
+  {
+    "src": "/gallery/Corporate & PR/PSX_20260530_205016.jpg",
+    "cat": "Corporate & PR",
+    "t": "Corporate & PR"
+  },
+  {
+    "src": "/gallery/Corporate & PR/PSX_20260530_205128.jpg",
+    "cat": "Corporate & PR",
+    "t": "Corporate & PR"
+  },
+  {
+    "src": "/gallery/Corporate & PR/PSX_20260530_205237.jpg",
+    "cat": "Corporate & PR",
+    "t": "Corporate & PR"
+  },
+  {
+    "src": "/gallery/Cultural Celebrations/PSX_20260530_204713.jpg",
+    "cat": "Cultural Celebrations",
+    "t": "Cultural Celebrations"
+  },
+  {
+    "src": "/gallery/Cultural Celebrations/PSX_20260530_204733.jpg",
+    "cat": "Cultural Celebrations",
+    "t": "Cultural Celebrations"
+  },
+  {
+    "src": "/gallery/Cultural Celebrations/PSX_20260530_204816.jpg",
+    "cat": "Cultural Celebrations",
+    "t": "Cultural Celebrations"
+  },
+  {
+    "src": "/gallery/Cultural Celebrations/PSX_20260530_205111.jpg",
+    "cat": "Cultural Celebrations",
+    "t": "Cultural Celebrations"
+  },
+  {
+    "src": "/gallery/Cultural Celebrations/PSX_20260530_205334.jpg",
+    "cat": "Cultural Celebrations",
+    "t": "Cultural Celebrations"
+  },
+  {
+    "src": "/gallery/Cultural Celebrations/PSX_20260530_205341.jpg",
+    "cat": "Cultural Celebrations",
+    "t": "Cultural Celebrations"
+  },
+  {
+    "src": "/gallery/Cultural Celebrations/PSX_20260530_205349.jpg",
+    "cat": "Cultural Celebrations",
+    "t": "Cultural Celebrations"
+  },
+  {
+    "src": "/gallery/Festivals & Concerts/DOC-20260428-WA0006..jpg",
+    "cat": "Festivals & Concerts",
+    "t": "Festivals & Concerts"
+  },
+  {
+    "src": "/gallery/Festivals & Concerts/PSX_20260530_204652.jpg",
+    "cat": "Festivals & Concerts",
+    "t": "Festivals & Concerts"
+  },
+  {
+    "src": "/gallery/Festivals & Concerts/PSX_20260530_204850.jpg",
+    "cat": "Festivals & Concerts",
+    "t": "Festivals & Concerts"
+  },
+  {
+    "src": "/gallery/Festivals & Concerts/PSX_20260530_205050.jpg",
+    "cat": "Festivals & Concerts",
+    "t": "Festivals & Concerts"
+  },
+  {
+    "src": "/gallery/Festivals & Concerts/PSX_20260530_205714.jpg",
+    "cat": "Festivals & Concerts",
+    "t": "Festivals & Concerts"
+  },
+  {
+    "src": "/gallery/Festivals & Concerts/PSX_20260530_205725.jpg",
+    "cat": "Festivals & Concerts",
+    "t": "Festivals & Concerts"
+  },
+  {
+    "src": "/gallery/Festivals & Concerts/PSX_20260530_205755.jpg",
+    "cat": "Festivals & Concerts",
+    "t": "Festivals & Concerts"
+  },
+  {
+    "src": "/gallery/Festivals & Concerts/PSX_20260530_205804.jpg",
+    "cat": "Festivals & Concerts",
+    "t": "Festivals & Concerts"
+  },
+  {
+    "src": "/gallery/Festivals & Concerts/PSX_20260530_205825.jpg",
+    "cat": "Festivals & Concerts",
+    "t": "Festivals & Concerts"
+  },
+  {
+    "src": "/gallery/Festivals & Concerts/PSX_20260530_205834.jpg",
+    "cat": "Festivals & Concerts",
+    "t": "Festivals & Concerts"
+  },
+  {
+    "src": "/gallery/Festivals & Concerts/PSX_20260530_205935.jpg",
+    "cat": "Festivals & Concerts",
+    "t": "Festivals & Concerts"
+  },
+  {
+    "src": "/gallery/Graduations & Matric Dance/PSX_20260530_205612.jpg",
+    "cat": "Graduations & Matric Dance",
+    "t": "Graduations & Matric Dance"
+  },
+  {
+    "src": "/gallery/Graduations & Matric Dance/PSX_20260530_205642.jpg",
+    "cat": "Graduations & Matric Dance",
+    "t": "Graduations & Matric Dance"
+  },
+  {
+    "src": "/gallery/Graduations & Matric Dance/PSX_20260530_205701.jpg",
+    "cat": "Graduations & Matric Dance",
+    "t": "Graduations & Matric Dance"
+  },
+  {
+    "src": "/gallery/Graduations & Matric Dance/PSX_20260530_205745.jpg",
+    "cat": "Graduations & Matric Dance",
+    "t": "Graduations & Matric Dance"
+  },
+  {
+    "src": "/gallery/Graduations & Matric Dance/PSX_20260530_205814.jpg",
+    "cat": "Graduations & Matric Dance",
+    "t": "Graduations & Matric Dance"
+  },
+  {
+    "src": "/gallery/Graduations & Matric Dance/PSX_20260530_205849.jpg",
+    "cat": "Graduations & Matric Dance",
+    "t": "Graduations & Matric Dance"
+  },
+  {
+    "src": "/gallery/Graduations & Matric Dance/PSX_20260530_205900.jpg",
+    "cat": "Graduations & Matric Dance",
+    "t": "Graduations & Matric Dance"
+  },
+  {
+    "src": "/gallery/Graduations & Matric Dance/PSX_20260530_205915.jpg",
+    "cat": "Graduations & Matric Dance",
+    "t": "Graduations & Matric Dance"
+  },
+  {
+    "src": "/gallery/Models & Content/PSX_20260530_205039.jpg",
+    "cat": "Models & Content",
+    "t": "Models & Content"
+  },
+  {
+    "src": "/gallery/Models & Content/PSX_20260530_205100.jpg",
+    "cat": "Models & Content",
+    "t": "Models & Content"
+  },
+  {
+    "src": "/gallery/Models & Content/PSX_20260530_205624.jpg",
+    "cat": "Models & Content",
+    "t": "Models & Content"
+  },
+  {
+    "src": "/gallery/Models & Content/PSX_20260530_205736.jpg",
+    "cat": "Models & Content",
+    "t": "Models & Content"
+  },
+  {
+    "src": "/gallery/Product Shoot/PSX_20260530_204633.jpg",
+    "cat": "Product Shoot",
+    "t": "Product Shoot"
+  },
+  {
+    "src": "/gallery/Product Shoot/PSX_20260530_204751.jpg",
+    "cat": "Product Shoot",
+    "t": "Product Shoot"
+  },
+  {
+    "src": "/gallery/Product Shoot/PSX_20260530_204840.jpg",
+    "cat": "Product Shoot",
+    "t": "Product Shoot"
+  },
+  {
+    "src": "/gallery/Product Shoot/PSX_20260530_204942.jpg",
+    "cat": "Product Shoot",
+    "t": "Product Shoot"
+  },
+  {
+    "src": "/gallery/Product Shoot/PSX_20260530_204953.jpg",
+    "cat": "Product Shoot",
+    "t": "Product Shoot"
+  },
+  {
+    "src": "/gallery/Product Shoot/PSX_20260530_205004.jpg",
+    "cat": "Product Shoot",
+    "t": "Product Shoot"
+  },
+  {
+    "src": "/gallery/Product Shoot/PSX_20260530_205029.jpg",
+    "cat": "Product Shoot",
+    "t": "Product Shoot"
+  },
+  {
+    "src": "/gallery/Product Shoot/PSX_20260530_205246.jpg",
+    "cat": "Product Shoot",
+    "t": "Product Shoot"
+  },
+  {
+    "src": "/gallery/Product Shoot/PSX_20260530_205304.jpg",
+    "cat": "Product Shoot",
+    "t": "Product Shoot"
+  },
+  {
+    "src": "/gallery/Product Shoot/PSX_20260530_205431.jpg",
+    "cat": "Product Shoot",
+    "t": "Product Shoot"
+  },
+  {
+    "src": "/gallery/Product Shoot/PSX_20260530_205539.jpg",
+    "cat": "Product Shoot",
+    "t": "Product Shoot"
+  },
+  {
+    "src": "/gallery/Property & Real Estate/IMG-20260427-WA0092.jpg",
+    "cat": "Property & Real Estate",
+    "t": "Property & Real Estate"
+  },
+  {
+    "src": "/gallery/Property & Real Estate/PSX_20260530_205119.jpg",
+    "cat": "Property & Real Estate",
+    "t": "Property & Real Estate"
+  },
+  {
+    "src": "/gallery/Property & Real Estate/PSX_20260530_205140.jpg",
+    "cat": "Property & Real Estate",
+    "t": "Property & Real Estate"
+  },
+  {
+    "src": "/gallery/Property & Real Estate/PSX_20260530_205153.jpg",
+    "cat": "Property & Real Estate",
+    "t": "Property & Real Estate"
+  },
+  {
+    "src": "/gallery/Property & Real Estate/PSX_20260530_205205.jpg",
+    "cat": "Property & Real Estate",
+    "t": "Property & Real Estate"
+  },
+  {
+    "src": "/gallery/Property & Real Estate/PSX_20260530_205217.jpg",
+    "cat": "Property & Real Estate",
+    "t": "Property & Real Estate"
+  },
+  {
+    "src": "/gallery/Property & Real Estate/PSX_20260530_205314.jpg",
+    "cat": "Property & Real Estate",
+    "t": "Property & Real Estate"
+  },
+  {
+    "src": "/gallery/Property & Real Estate/PSX_20260530_205419.jpg",
+    "cat": "Property & Real Estate",
+    "t": "Property & Real Estate"
+  },
+  {
+    "src": "/gallery/Property & Real Estate/PSX_20260530_205515.jpg",
+    "cat": "Property & Real Estate",
+    "t": "Property & Real Estate"
+  },
+  {
+    "src": "/gallery/Property & Real Estate/PSX_20260530_205530.jpg",
+    "cat": "Property & Real Estate",
+    "t": "Property & Real Estate"
+  },
+  {
+    "src": "/gallery/Weddings/PSX_20260530_205227.jpg",
+    "cat": "Weddings",
+    "t": "Weddings"
+  },
+  {
+    "src": "/gallery/Weddings/PSX_20260530_205400.jpg",
+    "cat": "Weddings",
+    "t": "Weddings"
+  },
+  {
+    "src": "/gallery/Weddings/PSX_20260530_205440.jpg",
+    "cat": "Weddings",
+    "t": "Weddings"
+  },
+  {
+    "src": "/gallery/Weddings/PSX_20260530_205447.jpg",
+    "cat": "Weddings",
+    "t": "Weddings"
+  },
+  {
+    "src": "/gallery/Weddings/PSX_20260530_205455.jpg",
+    "cat": "Weddings",
+    "t": "Weddings"
+  },
+  {
+    "src": "/gallery/Weddings/PSX_20260530_205504.jpg",
+    "cat": "Weddings",
+    "t": "Weddings"
+  },
+  {
+    "src": "/gallery/Weddings/PSX_20260530_205602.jpg",
+    "cat": "Weddings",
+    "t": "Weddings"
+  }
 ];
 let af='all',li=0,fi=[];
 function rG(f){
