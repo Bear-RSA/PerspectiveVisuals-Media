@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy | Perspective Visuals & Media</title>
+<link rel="icon" type="image/png" href="logo-dark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,700;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#060606;--dark:#0f0f0f;--card:#141414;--card2:#1a1a1a;
+  --red:#cc1a1a;--red-bright:#e82424;--red-dim:rgba(204,26,26,.15);
+  --silver:#a0a8b0;--silver-light:#c8d0d8;
+  --cream:#ede8e2;--muted:#6a6a6a;--white:#f8f8f6;
+  --border:rgba(204,26,26,.2);--border-s:rgba(160,168,176,.18);
+  --ease:cubic-bezier(.23,1,.32,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Montserrat',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--dark);}
+::-webkit-scrollbar-thumb{background:var(--red);}
+
+/* CURSOR */
+#cd,#cr{position:fixed;top:0;left:0;pointer-events:none;z-index:99999;border-radius:50%;transform:translate(-50%,-50%);}
+#cd{width:7px;height:7px;background:var(--red);}
+#cr{width:38px;height:38px;border:1.5px solid rgba(204,26,26,.5);transition:width .3s,height .3s,opacity .3s;}
+#cr.big{width:60px;height:60px;opacity:.6;}
+
+/* MOBILE MENU */
+#mob{position:fixed;inset:0;z-index:9990;background:rgba(6,6,6,.97);backdrop-filter:blur(20px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:38px;}
+#mob.open{display:flex;}
+#mob a{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.12em;color:var(--white);text-decoration:none;transition:color .3s;line-height:1;}
+#mob a:hover{color:var(--red);}
+.mob-x{position:absolute;top:26px;right:28px;background:none;border:none;color:var(--cream);font-size:1.6rem;cursor:pointer;}
+.mob-soc{display:flex;gap:12px;margin-top:16px;}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:5000;padding:32px 80px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--ease),background .5s;}
+nav.sc{background:rgba(6,6,6,.96);backdrop-filter:blur(24px);padding:16px 80px;border-bottom:1px solid var(--border);}
+.nl img{height:64px;width:auto;display:block;transition:height .4s;object-fit:contain;mix-blend-mode:screen;}
+nav.sc .nl img{height:48px;}
+.nv{display:flex;gap:38px;list-style:none;align-items:center;}
+.nv a{color:var(--cream);text-decoration:none;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;font-weight:400;opacity:.72;position:relative;transition:opacity .3s,color .3s;}
+.nv a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:1.5px;background:var(--red);transition:width .4s var(--ease);}
+.nv a:hover{opacity:1;color:var(--white);}
+.nv a:hover::after{width:100%;}
+.nbk{background:var(--red)!important;color:var(--white)!important;padding:12px 28px!important;opacity:1!important;transition:background .3s,transform .3s!important;border-radius:2px;}
+.nbk:hover{background:var(--red-bright)!important;transform:translateY(-1px);}
+.nbk::after{display:none!important;}
+.hbg{display:none;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:4px;}
+.hbg span{width:26px;height:1.5px;background:var(--cream);display:block;}
+@media(max-width:900px){.nv{display:none;}.hbg{display:flex;}nav{padding:18px 24px;}nav.sc{padding:12px 24px;}}
+
+/* POLICY CONTENT */
+.policy-page {
+  padding: 160px 80px 80px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.policy-header {
+  margin-bottom: 60px;
+  text-align: center;
+}
+.policy-header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  letter-spacing: .05em;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.policy-header p {
+  color: var(--silver);
+  font-size: .8rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.policy-content {
+  background: var(--dark);
+  padding: 60px;
+  border: 1px solid var(--border-s);
+  border-radius: 4px;
+}
+.policy-content h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: var(--red);
+  letter-spacing: .05em;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-s);
+  padding-bottom: 10px;
+}
+.policy-content h2:first-child {
+  margin-top: 0;
+}
+.policy-content p, .policy-content ul {
+  font-size: .88rem;
+  line-height: 1.8;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+.policy-content ul {
+  padding-left: 24px;
+  margin-bottom: 24px;
+}
+.policy-content li {
+  margin-bottom: 8px;
+}
+.policy-content strong {
+  color: var(--white);
+  font-weight: 500;
+}
+.policy-content a {
+  color: var(--red);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.policy-content a:hover {
+  color: var(--red-bright);
+}
+@media(max-width:900px){
+  .policy-page { padding: 120px 24px 60px; }
+  .policy-content { padding: 30px; }
+}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid var(--border);padding:80px 64px 40px;}
+.ftg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:52px;margin-bottom:60px;}
+.ftb img{height:80px;width:auto;margin-bottom:16px;mix-blend-mode:screen;}
+.ftb p{font-size:.74rem;color:var(--muted);line-height:1.88;margin-bottom:22px;}
+.fth{font-size:.56rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:18px;}
+.ftl{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.ftl a{color:var(--muted);text-decoration:none;font-size:.76rem;transition:color .3s;}
+.ftl a:hover{color:var(--red);}
+.ftbot{display:flex;justify-content:space-between;align-items:center;padding-top:30px;border-top:1px solid var(--border);}
+.ftcopy{font-size:.62rem;color:var(--muted);letter-spacing:.06em;}
+.ftcopy span{color:var(--red);}
+.ftleg{display:flex;gap:22px;}
+.ftleg a{font-size:.6rem;color:var(--muted);text-decoration:none;transition:color .3s;}
+.ftleg a:hover{color:var(--silver);}
+.socr{display:flex;gap:12px;}
+.soca{width:42px;height:42px;border:1px solid var(--border-s);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:border-color .3s,color .3s,background .3s;}
+.soca:hover{border-color:var(--red);color:var(--red);background:var(--red-dim);}
+@media(max-width:900px){.ftg{grid-template-columns:1fr 1fr;gap:34px;}footer{padding:60px 28px 32px;}}
+@media(max-width:600px){.ftg{grid-template-columns:1fr;}.ftbot{flex-direction:column;gap:14px;text-align:center;}}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cd"></div><div id="cr"></div>
+
+<!-- MOBILE MENU -->
+<div id="mob">
+  <button class="mob-x" onclick="clM()">✕</button>
+  <a href="index.html#about" onclick="clM()">About</a>
+  <a href="index.html#services" onclick="clM()">Services</a>
+  <a href="index.html#gallery" onclick="clM()">Gallery</a>
+  <a href="index.html#process" onclick="clM()">Process</a>
+  <a href="index.html#contact" onclick="clM()">Contact</a>
+  <div class="mob-soc">
+    <a href="https://www.instagram.com/perspective_visuals/" target="_blank" class="soca">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://web.facebook.com/profile.php?id=100048476235233" target="_blank" class="soca">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nl"><img src="logo-dark.png" alt="Perspective Visuals & Media"></a>
+  <ul class="nv">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#gallery">Gallery</a></li>
+    <li><a href="index.html#process">Process</a></li>
+    <li><a href="index.html#testimonials">Reviews</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="index.html#contact" class="nbk">Book Now</a></li>
+  </ul>
+  <button class="hbg" onclick="opM()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- POLICY CONTENT -->
+<section class="policy-page">
+  <div class="policy-header">
+    <h1>Privacy Policy</h1>
+    <p>Last Updated: 15 June 2026</p>
+  </div>
+  
+  <div class="policy-content">
+    <h2>1. Introduction</h2>
+    <p>This Privacy Policy explains how we collect, use, store, and protect your personal information when you use our photography website and services. We are committed to protecting your privacy in accordance with the Protection of Personal Information Act 4 of 2013 (POPIA) of South Africa.</p>
+    <p><strong>POPIA Compliance Commitment</strong><br>We process personal information in a lawful, reasonable, and non-intrusive manner, respecting your right to privacy as guaranteed by Section 14 of the Constitution of the Republic of South Africa.</p>
+
+    <h2>2. Information We Collect</h2>
+    <p>We may collect the following types of personal information:</p>
+    <ul>
+      <li><strong>Contact Information:</strong> Name, email address, phone number, and physical address (provided via our enquiry form)</li>
+      <li><strong>Event Details:</strong> Date, venue, and nature of your photography requirements</li>
+      <li><strong>Images &amp; Media:</strong> Photographs and video footage captured during sessions, which may include your likeness</li>
+      <li><strong>Technical Data:</strong> IP address, browser type, and device information when visiting our website</li>
+      <li><strong>Communication Records:</strong> Emails, messages, and notes from our interactions</li>
+    </ul>
+
+    <h2>3. How We Collect Information</h2>
+    <ul>
+      <li>Directly from you through our enquiry form</li>
+      <li>Via email, phone, or in-person consultations</li>
+      <li>During photography sessions and events</li>
+      <li>Automatically through cookies and website analytics</li>
+    </ul>
+
+    <h2>4. Purpose of Collection (Section 11 of POPIA)</h2>
+    <p>We collect your personal information for the following lawful purposes:</p>
+    <ul>
+      <li>To respond to your enquiries and provide quotes</li>
+      <li>To deliver photography services as requested</li>
+      <li>To communicate regarding bookings, scheduling, and deliverables</li>
+      <li>To process payments and maintain financial records</li>
+      <li>To display portfolio work (only with your explicit consent)</li>
+      <li>To comply with legal and tax obligations</li>
+    </ul>
+
+    <h2>5. Legal Basis for Processing</h2>
+    <p>Under POPIA, we process your personal information based on:</p>
+    <ul>
+      <li><strong>Consent:</strong> Where you have given explicit permission (e.g., for marketing or portfolio use)</li>
+      <li><strong>Contractual Necessity:</strong> To fulfil our agreement to provide photography services</li>
+      <li><strong>Legal Obligation:</strong> To comply with tax, accounting, and other statutory requirements</li>
+      <li><strong>Legitimate Interest:</strong> For website security, fraud prevention, and business operations</li>
+    </ul>
+
+    <h2>6. Consent</h2>
+    <p>By submitting our enquiry form or engaging our services, you consent to the collection and processing of your personal information as described in this policy. You have the right to:</p>
+    <ul>
+      <li>Withdraw consent at any time</li>
+      <li>Object to the processing of your personal information</li>
+      <li>Request that we cease using your images for marketing or portfolio purposes</li>
+    </ul>
+
+    <h2>7. Data Sharing &amp; Disclosure</h2>
+    <p>We do not sell your personal information. We may share your data only with:</p>
+    <ul>
+      <li>Trusted service providers (e.g., printing labs, cloud storage providers) under strict confidentiality agreements</li>
+      <li>Legal authorities when required by law or court order</li>
+      <li>Professional advisors (e.g., accountants) for business compliance purposes</li>
+    </ul>
+
+    <h2>8. Data Security</h2>
+    <p>We implement appropriate technical and organisational measures to protect your personal information against:</p>
+    <ul>
+      <li>Loss, theft, or unauthorised access</li>
+      <li>Alteration, disclosure, or destruction</li>
+    </ul>
+    <p>These measures include encrypted storage, secure servers, password protection, and restricted access to authorised personnel only.</p>
+
+    <h2>9. Data Retention</h2>
+    <p>We retain your personal information only for as long as necessary to fulfil the purposes for which it was collected, or as required by law:</p>
+    <ul>
+      <li><strong>Client files and images:</strong> Retained for the duration of our contractual relationship and up to 5 years thereafter for backup purposes</li>
+      <li><strong>Financial records:</strong> Retained for 5 years in accordance with tax legislation</li>
+      <li><strong>Enquiry form submissions:</strong> Retained for 12 months if no booking is confirmed, after which they are securely deleted</li>
+    </ul>
+
+    <h2>10. Your Rights Under POPIA</h2>
+    <p>As a data subject, you have the following rights:</p>
+    <ul>
+      <li><strong>Right to Access:</strong> Request a copy of the personal information we hold about you</li>
+      <li><strong>Right to Correction:</strong> Request that we correct inaccurate or outdated information</li>
+      <li><strong>Right to Deletion:</strong> Request deletion of your personal information where lawful</li>
+      <li><strong>Right to Object:</strong> Object to processing for direct marketing or legitimate interest purposes</li>
+      <li><strong>Right to Complain:</strong> Lodge a complaint with the Information Regulator if you believe your rights have been violated</li>
+    </ul>
+
+    <h2>11. Cookies &amp; Website Tracking</h2>
+    <p>Our website uses cookies to enhance your browsing experience. You can control cookie preferences through your browser settings. We use analytics tools to understand website traffic and improve our services.</p>
+
+    <h2>12. Third-Party Links</h2>
+    <p>Our website may contain links to third-party websites. We are not responsible for the privacy practices of these external sites. We encourage you to read their privacy policies.</p>
+
+    <h2>13. Cross-Border Transfers</h2>
+    <p>If we transfer your personal information outside South Africa (e.g., to cloud storage providers), we ensure that the recipient country has adequate data protection laws or that appropriate safeguards are in place.</p>
+
+    <h2>14. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date. We encourage you to review this policy periodically.</p>
+
+    <h2>15. Information Officer</h2>
+    <p>In terms of POPIA, we have appointed an Information Officer responsible for ensuring compliance with data protection laws.</p>
+    
+    <p><strong>Contact Us / Information Officer</strong><br>For any privacy-related questions, data subject access requests, or POPIA concerns, please contact our Information Officer:</p>
+    <p><strong>Email:</strong> <a href="mailto:feedback@miraistack.co.za">feedback@miraistack.co.za</a></p>
+    <p>We will respond to all enquiries within 30 days in accordance with POPIA requirements.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftg">
+    <div class="ftb">
+      <img src="logo-dark.png" alt="Perspective Visuals & Media">
+      <p>Photography and cinematography studio based in South Africa. Creating timeless imagery for every occasion — personal, private, and corporate.<br><br><em style="color:var(--silver);font-size:.7rem;">Moments · Storytelling · Impact</em></p>
+      <div class="socr">
+        <a href="https://www.instagram.com/perspective_visuals/" target="_blank" class="soca"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://web.facebook.com/profile.php?id=100048476235233" target="_blank" class="soca"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="mailto:perspective.visuals19@gmail.com" class="soca"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+      </div>
+    </div>
+    <div><div class="fth">Services</div><ul class="ftl"><li><a href="index.html#services">Wedding Photography</a></li><li><a href="index.html#services">Cinematography</a></li><li><a href="index.html#services">Corporate Events</a></li><li><a href="index.html#services">Outdoor Festivals</a></li><li><a href="index.html#services">Portraits</a></li><li><a href="index.html#services">Private Events</a></li></ul></div>
+    <div><div class="fth">Company</div><ul class="ftl"><li><a href="index.html#about">About Us</a></li><li><a href="index.html#gallery">Portfolio</a></li><li><a href="index.html#process">Our Process</a></li><li><a href="index.html#testimonials">Client Reviews</a></li><li><a href="index.html#contact">Contact Us</a></li></ul></div>
+    <div><div class="fth">Connect</div><ul class="ftl"><li><a href="https://www.instagram.com/perspective_visuals/" target="_blank">Instagram</a></li><li><a href="https://web.facebook.com/profile.php?id=100048476235233" target="_blank">Facebook</a></li><li><a href="mailto:perspective.visuals19@gmail.com">Email Us</a></li></ul></div>
+  </div>
+  <div class="ftbot">
+    <div class="ftcopy">© 2026 <span>Perspective Visuals & Media</span>. All rights reserved. | POPIA Compliant</div>
+    <div class="ftleg"><a href="privacy-policy.html">Privacy Policy</a><a href="#">Terms of Service</a></div>
+  </div>
+</footer>
+
+<script>
+// CURSOR
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function a(){cd.style.cssText=`left:${mx}px;top:${my}px;`;rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cr.style.cssText=`left:${rx}px;top:${ry}px;`;requestAnimationFrame(a);})();
+document.querySelectorAll('a,button,.soca').forEach(el=>{el.addEventListener('mouseenter',()=>cr.classList.add('big'));el.addEventListener('mouseleave',()=>cr.classList.remove('big'));});
+
+// NAV
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>50));
+
+// MOBILE MENU
+function opM(){document.getElementById('mob').classList.add('open');}
+function clM(){document.getElementById('mob').classList.remove('open');}
+</script>
+</body>
+</html>
